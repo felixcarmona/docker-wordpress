@@ -33,3 +33,9 @@ MYSQL_PASSWORD=password
 - `DOMAIN=example.com make backup-mysql`
 
 will generate in `backups/` the files`code.tar.gz` and `dump.sql.gz`
+
+- `DOMAIN=example.com make recover` 
+- `DOMAIN=example.com make recover-code`
+- `DOMAIN=example.com make recover-mysql`
+
+will recover the backups from `backups/` with the files `code.tar.gz` and `dump.sql.gz`
