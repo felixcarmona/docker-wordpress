@@ -26,6 +26,16 @@ backup-code:
 
 backup-mysql:
 	mkdir -p backups
-	docker exec -ti $(DOMAIN)_mysql sh -c 'mysqldump -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} $${MYSQL_DATABASE} | gzip -c > /tmp/dump.sql.gz'
+	docker exec -ti $(DOMAIN)_mysql sh -c 'mysqldump -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --databases $${MYSQL_DATABASE} --add-drop-database | gzip -c > /tmp/dump.sql.gz'
 	docker cp $(DOMAIN)_mysql:/tmp/dump.sql.gz backups/
 	docker exec -ti $(DOMAIN)_mysql rm -rf /tmp/dump.sql.gz
+
+recover: recover-code recover-mysql
+
+recover-code:
+	docker cp backups/code.tar.gz $(DOMAIN)_php:/tmp
+	docker exec -ti $(DOMAIN)_php sh -c 'rm -rf /code/* && tar -zxvf /tmp/code.tar.gz --strip-components=1 -C /code && rm /tmp/code.tar.gz'
+
+recover-mysql:
+	docker cp backups/dump.sql.gz $(DOMAIN)_mysql:/tmp
+	docker exec -ti $(DOMAIN)_mysql sh -c 'zcat /tmp/dump.sql.gz | mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} && rm /tmp/dump.sql.gz'
