@@ -1,0 +1,51 @@
+server {
+  server_name  {{SERVER_NAME}};
+  listen   80;
+  # listen for ipv6
+  listen   [::]:80 default ipv6only=on;
+  # root
+  root   /code;
+  index index.html index.htm index.php;
+
+  client_max_body_size 100M;
+  fastcgi_read_timeout 1800;
+
+  #error_page  404        /404.html;
+
+  # error50x.html
+  #
+  error_page   500 502 503 504  /50x.html;
+  location = /50x.html {
+    root   /code;
+  }
+
+  location / {
+    # try_files $uri $uri/ /index.php;
+    # add permalinks
+    try_files $uri $uri/ /index.php?$args;
+  }
+
+  # Expiration headers
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+    expires       max;
+    log_not_found off;
+    access_log    off;
+  }
+
+  # Disable favicon from root
+  location = /favicon.ico {
+    log_not_found off;
+    access_log off;
+  }
+
+  # PHP
+  location ~ \.php$ {
+    try_files $uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass php:9000;
+    fastcgi_index index.php;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+  }
+}
