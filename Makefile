@@ -4,6 +4,9 @@ up:
 purge:
 	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down -v
 
+restart:
+	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose restart
+
 sh-nginx:
 	docker exec -ti $(DOMAIN)_nginx sh
 
