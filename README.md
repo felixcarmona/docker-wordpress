@@ -26,3 +26,10 @@ MYSQL_DATABASE=wordpress
 MYSQL_USER=username
 MYSQL_PASSWORD=password
 ```
+
+## Backups
+- `DOMAIN=example.com make backup` 
+- `DOMAIN=example.com make backup-code`
+- `DOMAIN=example.com make backup-mysql`
+
+will generate in `backups/` the files`code.tar.gz` and `dump.sql.gz`
