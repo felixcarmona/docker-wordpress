@@ -1,6 +1,14 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}-fpm-alpine
 
+# install utils
+RUN set -ex; \
+    \
+    apk add --no-cache --virtual .build-deps \
+            vim \
+            curl \
+        ;
+
 # install the PHP extensions
 RUN set -ex; \
     \
