@@ -1,6 +1,9 @@
 up:
 	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose up -d --build
 
+down:
+	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down
+
 purge:
 	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down -v
 
