@@ -5,7 +5,7 @@ down:
 	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down
 
 purge:
-	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down -v
+	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down -v --remove-orphans
 
 restart:
 	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose restart
