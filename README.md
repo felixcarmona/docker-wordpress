@@ -10,7 +10,7 @@ NGINX + PHP-FPM + MYSQL
 ## Shell
 - `DOMAIN=example.com make sh-nginx`
 - `DOMAIN=example.com make sh-php`
-- `DOMAIN=example.com make sh-msql`
+- `DOMAIN=example.com make sh-mysql`
 
 ## Configuration
 `.env` configurable/default values:
