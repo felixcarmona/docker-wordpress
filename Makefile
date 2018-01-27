@@ -4,8 +4,8 @@ up:
 down:
 	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down
 
-purge:
-	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down -v --remove-orphans
+destroy:
+	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose down -v
 
 restart:
 	COMPOSE_PROJECT_NAME=$(DOMAIN) docker-compose restart
@@ -18,6 +18,9 @@ sh-php:
 
 sh-mysql:
 	docker exec -ti $(DOMAIN)_mysql sh
+
+sh-varnish:
+	docker exec -ti $(DOMAIN)_varnish sh
 
 backup: backup-code backup-mysql
 
