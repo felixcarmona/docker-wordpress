@@ -42,3 +42,13 @@ recover-code:
 recover-mysql:
 	docker cp backups/$(DOMAIN)_dump.sql.gz $(DOMAIN)_mysql:/tmp/dump.sql.gz
 	docker exec -ti $(DOMAIN)_mysql sh -c 'zcat /tmp/dump.sql.gz | mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} && rm /tmp/dump.sql.gz'
+
+nginx-proxy-start:
+	docker run -d --net=host -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+
+nginx-proxy-stop:
+	docker rm $$(docker stop $$(docker ps -a -q --filter ancestor=jwilder/nginx-proxy --format="{{.ID}}"))
+
+nginx-proxy-restart:
+	-make nginx-proxy-stop
+	make nginx-proxy-start
