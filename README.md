@@ -1,5 +1,5 @@
 # docker-wordpress
-NGINX + PHP-FPM + MYSQL
+NGINX-PROXY + NGINX + PHP-FPM + MYSQL
 
 ## Build
 `DOMAIN=example.com make up`
