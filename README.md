@@ -27,6 +27,18 @@ MYSQL_USER=username
 MYSQL_PASSWORD=password
 ```
 
+## nginx-proxy
+This `docker-wordpress` project supports having multiple wordpress instances with different domain names.
+
+`nginx-proxy` serves as HTTP Proxy + DNS server in order to dispatch the HTTP request to right the wordpress instance (based on the domain)
+
+- `make nginx-proxy-start`
+- `make nginx-proxy-stop`
+
+*Note: These commands will only work on Linux hosts (won't work on MacOS/Windows).*
+
+*Tip: If you are using MacOS as host server, consider using [dinghy](https://github.com/codekitchen/dinghy) (which includes the adapted implementation [dinghy-http-proxy](https://github.com/codekitchen/dinghy-http-proxy)) instead of Docker for Mac.*
+
 ## Backups
 - `DOMAIN=example.com make backup` 
 - `DOMAIN=example.com make backup-code`
