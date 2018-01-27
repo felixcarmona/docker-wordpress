@@ -26,7 +26,7 @@ services:
       - code:/code
     depends_on:
       - mysql
-      - code
+      - wordpress
 
   mysql:
     container_name: ${DOMAIN}_mysql
@@ -40,10 +40,10 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
-  code:
-    container_name: ${DOMAIN}_code
+  wordpress:
+    container_name: ${DOMAIN}_wordpress
     build:
-      context: ./code
+      context: ./wordpress
       args:
         ALPINE_VERSION: ${ALPINE_VERSION}
     volumes:
