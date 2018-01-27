@@ -1,6 +1,18 @@
 version: '3'
 
 services:
+  varnish:
+    container_name: ${DOMAIN}_varnish
+    build:
+      context: ./varnish
+      args:
+        ALPINE_VERSION: ${ALPINE_VERSION}
+        VARNISH_MEMORY: ${VARNISH_MEMORY}
+    environment:
+      VIRTUAL_HOST: ${DOMAIN}
+    depends_on:
+      - nginx
+
   nginx:
     container_name: ${DOMAIN}_nginx
     build:
@@ -9,8 +21,6 @@ services:
         NGINX_VERSION: ${NGINX_VERSION}
         SERVER_NAME: ${DOMAIN}
     restart: always
-    environment:
-      VIRTUAL_HOST: ${DOMAIN}
     volumes:
       - code:/code
     depends_on:
@@ -57,6 +67,8 @@ services:
                     sed -i \"s/localhost/mysql/g\" /code/wp-config.php;
                     sed -i \"s/username_here/${MYSQL_USER}/g\" /code/wp-config.php;
                     sed -i \"s/password_here/${MYSQL_PASSWORD}/g\" /code/wp-config.php;
+                    curl -o w3-total-cache.zip -fSL \"https://downloads.wordpress.org/plugin/w3-total-cache.${W3_TOTAL_CACHE_VERSION}.zip\";
+                    unzip w3-total-cache.zip -d /code/wp-content/plugins/;
                     chown -R www-data:www-data /code;
                     rm wordpress.tar.gz)"
 
