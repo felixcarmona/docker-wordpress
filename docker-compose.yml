@@ -53,11 +53,11 @@ services:
                     curl -o wordpress.tar.gz -fSL \"https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz\";
                     tar -xzf wordpress.tar.gz --strip-components=1 -C /code;
                     cp /code/wp-config-sample.php /code/wp-config.php;
-                    chown -R www-data:www-data /code;
                     sed -i \"s/database_name_here/${MYSQL_DATABASE}/g\" /code/wp-config.php;
                     sed -i \"s/localhost/mysql/g\" /code/wp-config.php;
                     sed -i \"s/username_here/${MYSQL_USER}/g\" /code/wp-config.php;
                     sed -i \"s/password_here/${MYSQL_PASSWORD}/g\" /code/wp-config.php;
+                    chown -R www-data:www-data /code;
                     rm wordpress.tar.gz)"
 
 volumes:
