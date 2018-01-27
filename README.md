@@ -51,3 +51,6 @@ will generate in `backups/` the files`code.tar.gz` and `dump.sql.gz`
 - `DOMAIN=example.com make recover-mysql`
 
 will recover the backups from `backups/` with the files `code.tar.gz` and `dump.sql.gz`
+
+## Install docker + docker_compose
+- ubuntu: `make docker-install-ubuntu`
