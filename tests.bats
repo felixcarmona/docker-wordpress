@@ -29,6 +29,23 @@
   run docker exec -ti one.example.com_php sh -c "EDITOR='sed -i s/Welcome/Bienvenido/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
   run curl -L -s http://one.example.com/hello-world/
   [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+  run docker exec -ti one.example.com_php sh -c "EDITOR='sed -i s/Bienvenido/Welcome/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
+  run curl -L -s http://one.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+}
+
+@test "install and configure W3 Total Cache in one.example.com" {
+  run docker exec -ti one.example.com_php sh -c "php /code/wp-admin/wp-cli.phar --allow-root plugin activate w3-total-cache"
+  run docker exec -ti one.example.com_php sh -c "php /code/wp-admin/wp-cli.phar --allow-root w3-total-cache option set varnish.servers varnish"
+  run docker exec -ti one.example.com_php sh -c "php /code/wp-admin/wp-cli.phar --allow-root w3-total-cache option set varnish.enabled 1"
+  run curl -L -s http://one.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+  run docker exec -ti one.example.com_php sh -c "EDITOR='sed -i s/Welcome/Bienvenido/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
+  run curl -L -s http://one.example.com/hello-world/
+  [[ $output =~ "Bienvenido to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+  run docker exec -ti one.example.com_php sh -c "EDITOR='sed -i s/Bienvenido/Welcome/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
+  run curl -L -s http://one.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
 }
 
 @test "HTTP two.example.com returns 200 OK" {
@@ -58,6 +75,23 @@
   run curl -L -s http://two.example.com/hello-world/
   [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
   run docker exec -ti two.example.com_php sh -c "EDITOR='sed -i s/Welcome/Bienvenido/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
+  run curl -L -s http://two.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+  run docker exec -ti two.example.com_php sh -c "EDITOR='sed -i s/Bienvenido/Welcome/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
+  run curl -L -s http://one.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+}
+
+@test "install and configure W3 Total Cache in two.example.com" {
+  run docker exec -ti two.example.com_php sh -c "php /code/wp-admin/wp-cli.phar --allow-root plugin activate w3-total-cache"
+  run docker exec -ti two.example.com_php sh -c "php /code/wp-admin/wp-cli.phar --allow-root w3-total-cache option set varnish.servers varnish"
+  run docker exec -ti two.example.com_php sh -c "php /code/wp-admin/wp-cli.phar --allow-root w3-total-cache option set varnish.enabled 1"
+  run curl -L -s http://two.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+  run docker exec -ti two.example.com_php sh -c "EDITOR='sed -i s/Welcome/Bienvenido/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
+  run curl -L -s http://two.example.com/hello-world/
+  [[ $output =~ "Bienvenido to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+  run docker exec -ti two.example.com_php sh -c "EDITOR='sed -i s/Bienvenido/Welcome/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
   run curl -L -s http://two.example.com/hello-world/
   [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
 }
