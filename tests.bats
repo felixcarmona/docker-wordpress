@@ -23,6 +23,14 @@
   [[ $output =~ "<title>Hello world! &#8211; one</title>" ]]
 }
 
+@test "edit post on one.example.com without W3 Total Cache will not invalidate the cache" {
+  run curl -L -s http://one.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+  run docker exec -ti one.example.com_php sh -c "EDITOR='sed -i s/Welcome/Bienvenido/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
+  run curl -L -s http://one.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+}
+
 @test "HTTP two.example.com returns 200 OK" {
   run curl -L -s -o /dev/null -w "%{http_code}" http://two.example.com
   [[ $output = "200" ]]
@@ -44,4 +52,12 @@
   run docker exec -ti two.example.com_php sh -c "php /code/wp-admin/wp-cli.phar --allow-root rewrite structure '/%postname%/'"
   run curl -L -s http://two.example.com/hello-world/
   [[ $output =~ "<title>Hello world! &#8211; two</title>" ]]
+}
+
+@test "edit post on two.example.com without W3 Total Cache will not invalidate the cache" {
+  run curl -L -s http://two.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
+  run docker exec -ti two.example.com_php sh -c "EDITOR='sed -i s/Welcome/Bienvenido/g' php /code/wp-admin/wp-cli.phar --allow-root post edit 1"
+  run curl -L -s http://two.example.com/hello-world/
+  [[ $output =~ "Welcome to WordPress. This is your first post. Edit or delete it, then start writing!" ]]
 }
