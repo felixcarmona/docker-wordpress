@@ -77,7 +77,3 @@ services:
 volumes:
     code:
     mysql_data:
-
-networks:
-  ${DOMAIN}:
-    external: true
