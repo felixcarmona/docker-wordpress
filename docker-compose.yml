@@ -62,6 +62,7 @@ services:
                     (set -ex;
                     curl -o wordpress.tar.gz -fSL \"https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz\";
                     tar -xzf wordpress.tar.gz --strip-components=1 -C /code;
+                    rm wordpress.tar.gz;
                     cp /code/wp-config-sample.php /code/wp-config.php;
                     sed -i \"s/database_name_here/${MYSQL_DATABASE}/g\" /code/wp-config.php;
                     sed -i \"s/localhost/mysql/g\" /code/wp-config.php;
@@ -70,8 +71,7 @@ services:
                     curl -o w3-total-cache.zip -fSL \"https://downloads.wordpress.org/plugin/w3-total-cache.${W3_TOTAL_CACHE_VERSION}.zip\";
                     unzip w3-total-cache.zip -d /code/wp-content/plugins/;
                     rm w3-total-cache.zip;
-                    chown -R www-data:www-data /code;
-                    rm wordpress.tar.gz)"
+                    chown -R www-data:www-data /code;)"
 
 volumes:
     code:
