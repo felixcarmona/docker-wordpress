@@ -17,12 +17,10 @@ before_install:
 
 install:
   - sudo make nginx-proxy-start
-  - DOMAIN=one.example.com sudo make up
-  - DOMAIN=two.example.com sudo make up
-  - sleep 10
+  - sudo make up-test
 
 script:
-  - bats ./tests.bats
+  - make test
 
 branches:
   only:
