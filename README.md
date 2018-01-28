@@ -1,6 +1,8 @@
 # docker-wordpress
 NGINX-PROXY + VARNISH + NGINX + PHP-FPM + MYSQL
 
+[![Build Status](https://travis-ci.org/felixcarmona/docker-wordpress.svg?branch=master)](https://travis-ci.org/felixcarmona/docker-wordpress)
+
 ## Build
 - `DOMAIN=example.com make up`
 - `DOMAIN=example.com make down`
