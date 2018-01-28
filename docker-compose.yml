@@ -71,6 +71,7 @@ services:
                     curl -o w3-total-cache.zip -fSL \"https://downloads.wordpress.org/plugin/w3-total-cache.${W3_TOTAL_CACHE_VERSION}.zip\";
                     unzip w3-total-cache.zip -d /code/wp-content/plugins/;
                     rm w3-total-cache.zip;
+                    curl -o /code/wp-admin/wp-cli.phar -fSL \"https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar\";
                     chown -R www-data:www-data /code;)"
 
 volumes:
