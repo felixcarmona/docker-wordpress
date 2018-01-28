@@ -17,7 +17,7 @@ before_install:
 
 install:
   - sudo make nginx-proxy-start
-  - sudo make up-test
+  - sudo make test-setup
 
 script:
   - make test
