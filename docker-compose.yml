@@ -69,6 +69,7 @@ services:
                     sed -i \"s/password_here/${MYSQL_PASSWORD}/g\" /code/wp-config.php;
                     curl -o w3-total-cache.zip -fSL \"https://downloads.wordpress.org/plugin/w3-total-cache.${W3_TOTAL_CACHE_VERSION}.zip\";
                     unzip w3-total-cache.zip -d /code/wp-content/plugins/;
+                    rm w3-total-cache.zip;
                     chown -R www-data:www-data /code;
                     rm wordpress.tar.gz)"
 
