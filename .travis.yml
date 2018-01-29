@@ -8,7 +8,9 @@ services:
 addons:
   hosts:
     - one.example.com
+    - www.one.example.com
     - two.example.com
+    - www.two.example.com
 
 before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes

@@ -5,6 +5,11 @@
   [[ $output = "200" ]]
 }
 
+@test "HTTP www.one.example.com returns 200 OK" {
+  run curl -L -s -o /dev/null -w "%{http_code}" http://www.one.example.com
+  [[ $output = "200" ]]
+}
+
 @test "one.example.com can be installed" {
   run curl -L -s http://one.example.com
   [[ $output =~ "WordPress &rsaquo; Installation" ]]
@@ -50,6 +55,11 @@
 
 @test "HTTP two.example.com returns 200 OK" {
   run curl -L -s -o /dev/null -w "%{http_code}" http://two.example.com
+  [[ $output = "200" ]]
+}
+
+@test "HTTP www.two.example.com returns 200 OK" {
+  run curl -L -s -o /dev/null -w "%{http_code}" http://www.two.example.com
   [[ $output = "200" ]]
 }
 
