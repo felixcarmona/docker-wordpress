@@ -10,6 +10,7 @@ services:
         VARNISH_MEMORY: ${VARNISH_MEMORY}
     environment:
       VIRTUAL_HOST: ${DOMAIN},www.${DOMAIN}
+    restart: always
     depends_on:
       - nginx
 
@@ -31,6 +32,7 @@ services:
       context: ./php
       args:
         PHP_VERSION: ${PHP_VERSION}
+    restart: always
     volumes:
       - code:/code
     depends_on:
@@ -40,9 +42,9 @@ services:
   mysql:
     container_name: ${DOMAIN}_mysql
     image: mysql:${MYSQL_VERSION}
+    restart: always
     volumes:
       - mysql_data:/var/lib/mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -80,6 +82,7 @@ services:
       args:
         ALPINE_VERSION: ${ALPINE_VERSION}
     dns: ${EXIM_DNS}
+    restart: always
 
 volumes:
     code:

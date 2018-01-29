@@ -50,7 +50,7 @@ recover-mysql:
 	docker exec -ti $(DOMAIN)_mysql sh -c 'zcat /tmp/dump.sql.gz | mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} && rm /tmp/dump.sql.gz'
 
 nginx-proxy-start:
-	docker run -d --net=host -p 80:80 -p 443:443 -v $(dir $(abspath $(lastword $(MAKEFILE_LIST))))certs:/etc/nginx/certs:ro -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+	docker run -d --restart=always --net=host -p 80:80 -p 443:443 -v $(dir $(abspath $(lastword $(MAKEFILE_LIST))))certs:/etc/nginx/certs:ro -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
 
 nginx-proxy-stop:
 	docker rm $$(docker stop $$(docker ps -a -q --filter ancestor=jwilder/nginx-proxy --format="{{.ID}}"))
