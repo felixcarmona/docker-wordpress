@@ -43,6 +43,7 @@ This `docker-wordpress` project supports having multiple wordpress instances wit
 
 - `make nginx-proxy-start`
 - `make nginx-proxy-stop`
+- `make nginx-proxy-restart`
 
 *Note: These commands will only work on Linux hosts (won't work on MacOS/Windows).*
 
