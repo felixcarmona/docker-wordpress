@@ -57,7 +57,7 @@ nginx-proxy-stop:
 
 nginx-proxy-restart:
 	-make nginx-proxy-stop
-	nginx-proxy-start
+	make nginx-proxy-start
 
 docker-install-ubuntu:
 	apt-get update
