@@ -9,7 +9,7 @@ services:
         ALPINE_VERSION: ${ALPINE_VERSION}
         VARNISH_MEMORY: ${VARNISH_MEMORY}
     environment:
-      VIRTUAL_HOST: ${DOMAIN}
+      VIRTUAL_HOST: ${DOMAIN},www.${DOMAIN}
     depends_on:
       - nginx
 

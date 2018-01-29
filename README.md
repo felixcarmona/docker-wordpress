@@ -9,6 +9,8 @@ NGINX-PROXY + VARNISH + NGINX + PHP-FPM + MYSQL
 - `DOMAIN=example.com make restart`
 - `DOMAIN=example.com make destroy` # CAUTION: will destroy all the containers and volumes.
 
+*Note: don't prefix the domain with `www.`*
+
 ## Shell
 - `DOMAIN=example.com make sh-nginx`
 - `DOMAIN=example.com make sh-php`
