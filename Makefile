@@ -55,6 +55,10 @@ nginx-proxy-start:
 nginx-proxy-stop:
 	docker rm $$(docker stop $$(docker ps -a -q --filter ancestor=jwilder/nginx-proxy --format="{{.ID}}"))
 
+nginx-proxy-restart:
+	-make nginx-proxy-stop
+	nginx-proxy-start
+
 docker-install-ubuntu:
 	apt-get update
 	apt-get install -y apt-transport-https ca-certificates curl software-properties-common
