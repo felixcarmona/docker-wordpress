@@ -14,6 +14,7 @@ NGINX-PROXY + VARNISH + NGINX + PHP-FPM + MYSQL
 - `DOMAIN=example.com make sh-php`
 - `DOMAIN=example.com make sh-mysql`
 - `DOMAIN=example.com make sh-varnish`
+- `DOMAIN=example.com make sh-exim`
 
 ## Configuration
 `.env` configurable/default values:
@@ -31,6 +32,8 @@ MYSQL_USER=username
 MYSQL_PASSWORD=password
 
 VARNISH_MEMORY=100M
+
+EXIM_DNS=8.8.8.8
 ```
 
 ## nginx-proxy
