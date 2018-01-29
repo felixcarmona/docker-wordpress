@@ -1,6 +1,5 @@
 # https://gist.github.com/matthewjackowski/062be03b41a68edbadfc
 
-# Supports https
 # Supports admin cookies for wp-admin
 # Caches everything
 # Support for custom error html page
@@ -38,11 +37,6 @@ sub vcl_recv {
         }
 
         return (purge);
-    }
-
-    if ( std.port(server.ip) == 6080) {
-        set req.http.x-redir = "https://" + req.http.host + req.url;
-        return (synth(750, "Moved permanently"));
     }
 
     # drop cookies and params from static assets
@@ -138,20 +132,12 @@ sub vcl_backend_error {
 }
 
 sub vcl_synth {
-    # redirect for http
-    if (resp.status == 750) {
-        set resp.status = 301;
-        set resp.http.Location = req.http.x-redir;
-        return(deliver);
-    }
-
     # display custom error page if backend down
     if (resp.status == 503) {
         synthetic(std.fileread("/etc/varnish/error503.html"));
         return(deliver);
     }
 }
-
 
 sub vcl_deliver {
     if (resp.status == 503) {
