@@ -22,6 +22,9 @@ sh-mysql:
 sh-varnish:
 	docker exec -ti $(DOMAIN)_varnish sh
 
+sh-exim:
+	docker exec -ti $(DOMAIN)_exim sh
+
 backup: backup-code backup-mysql
 
 backup-code:

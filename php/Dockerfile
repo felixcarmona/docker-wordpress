@@ -31,6 +31,22 @@ RUN { \
 		echo 'opcache.enable_cli=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
+
+RUN apk add --no-cache ssmtp
+
+RUN { \
+		echo 'sendmail_path = /usr/sbin/ssmtp -t'; \
+	} > /usr/local/etc/php/conf.d/smtp.ini
+
+# root:  The person who gets all mail for userids < 1000 (Empty to disable rewriting.
+# mailhub: The MTA container
+# FromLineOverride: Are users allowed to set their own From: address? (YES/NO)
+RUN { \
+		echo 'root='; \
+		echo 'mailhub=exim'; \
+		echo 'FromLineOverride=YES'; \
+	} > /etc/ssmtp/ssmtp.conf
+
 WORKDIR /code
 
 CMD ["php-fpm"]

@@ -74,6 +74,14 @@ services:
                     curl -o /code/wp-admin/wp-cli.phar -fSL \"https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar\";
                     chown -R www-data:www-data /code;)"
 
+  exim:
+    container_name: ${DOMAIN}_exim
+    build:
+      context: ./exim
+      args:
+        ALPINE_VERSION: ${ALPINE_VERSION}
+    dns: ${EXIM_DNS}
+
 volumes:
     code:
     mysql_data:
