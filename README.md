@@ -1,5 +1,5 @@
 # docker-wordpress
-NGINX-PROXY + VARNISH + NGINX + PHP-FPM + MYSQL
+NGINX-PROXY(SSL) + VARNISH + NGINX + PHP-FPM + MYSQL
 
 [![Build Status](https://travis-ci.org/felixcarmona/docker-wordpress.svg?branch=master)](https://travis-ci.org/felixcarmona/docker-wordpress)
 
@@ -50,6 +50,17 @@ This `docker-wordpress` project supports having multiple wordpress instances wit
 *Note: These commands will only work on Linux hosts (won't work on MacOS/Windows).*
 
 *Tip: If you are using MacOS as host server, consider using [dinghy](https://github.com/codekitchen/dinghy) (which includes the adapted implementation [dinghy-http-proxy](https://github.com/codekitchen/dinghy-http-proxy)) instead of Docker for Mac.*
+
+### SSL
+`nginx-proxy` is in front of Varnish and will receive the https requests, decrypt them, and send them to Varnish converted as http requests.
+
+Finally will encrypt the response before sending it to the client.
+
+Put your cert files `.crt` and `.key` in the path `./certs/{DOMAIN}.crt` and `./certs/{DOMAIN}.key`
+
+For example: `./certs/one.example.com.crt` and `./certs/one.example.com.key`
+
+**Note: remember to restart the `nginx-proxy` after any cert modification**
 
 ## Varnish
 Varnish is a web application accelerator also known as a caching HTTP reverse proxy.
