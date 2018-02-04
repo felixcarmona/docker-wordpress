@@ -4,7 +4,7 @@ services:
   varnish:
     container_name: ${DOMAIN}_varnish
     build:
-      context: ./varnish
+      context: ./services/varnish
       args:
         ALPINE_VERSION: ${ALPINE_VERSION}
         VARNISH_MEMORY: ${VARNISH_MEMORY}
@@ -17,7 +17,7 @@ services:
   nginx:
     container_name: ${DOMAIN}_nginx
     build:
-      context: ./nginx
+      context: ./services/nginx
       args:
         NGINX_VERSION: ${NGINX_VERSION}
     restart: always
@@ -29,7 +29,7 @@ services:
   php:
     container_name: ${DOMAIN}_php
     build:
-      context: ./php
+      context: ./services/php
       args:
         PHP_VERSION: ${PHP_VERSION}
     restart: always
@@ -54,7 +54,7 @@ services:
   wordpress:
     container_name: ${DOMAIN}_wordpress
     build:
-      context: ./wordpress
+      context: ./services/wordpress
       args:
         ALPINE_VERSION: ${ALPINE_VERSION}
     volumes:
@@ -78,7 +78,7 @@ services:
   exim:
     container_name: ${DOMAIN}_exim
     build:
-      context: ./exim
+      context: ./services/exim
       args:
         ALPINE_VERSION: ${ALPINE_VERSION}
     dns: ${EXIM_DNS}
